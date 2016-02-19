@@ -60,7 +60,7 @@ function askQuestions () {
       choices: function () {
         const done = this.async();
         scopePromise.then(scopeInfo => done(
-          Object.keys(scopeInfo).map(key => `${scopeInfo[key].id}: ${scopeInfo[key].description}`).sort()
+          Object.keys(scopeInfo).map(key => `${key}: ${scopeInfo[key].description}`).sort()
         ));
       },
       validate: input => input.length ? true : 'Please select at least one scope.'
