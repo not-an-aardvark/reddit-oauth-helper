@@ -5,11 +5,14 @@ const request = require('request-promise').defaults({json: true, baseUrl});
 const port = 65010;
 const expected_redirect_uri = `http://localhost:${port}/authorize_callback`;
 
-request.get('scopes').then(askQuestions);
+// Request the list of scopes from reddit right as the program starts.
+// Since the question about scope comes last, this promise is usually already resolved by the time that question is reached.
+const scopePromise = request.get('scopes');
+askQuestions();
 
-function askQuestions (scopeInfo) {
+function askQuestions () {
   console.log(
-    `\nWelcome to the reddit-oauth-helper. This script will allow you to easily get an authentication token from ` +
+    `\nWelcome to reddit-oauth-helper. This script will allow you to easily get an authentication token from ` +
     `reddit, which is necessary in order to access the reddit API. In most cases, you should only need to run it once; ` +
     `after you obtain a refresh token, you can use it indefinitely. If you already have a refresh token, you can skip ` +
     `this guide.\n\n---\n\nTo start, you will need to create an app on reddit by going to this page and scrolling down to ` +
@@ -28,7 +31,7 @@ function askQuestions (scopeInfo) {
         }
         return 'Please enter your client ID. This is the 14-character string that appears to the right of your app\'s icon on this page: https://www.reddit.com/prefs/apps';
       },
-      filter: input => (input.trim())
+      filter: input => input.trim()
     },
     {
       type: 'password',
@@ -40,7 +43,7 @@ function askQuestions (scopeInfo) {
         }
         return 'Please enter your client secret. This is the 27-character string that appears when you click "edit" next to your app on this page: https://www.reddit.com/prefs/apps';
       },
-      filter: input => (input.trim())
+      filter: input => input.trim()
     },
     {
       type: 'list',
@@ -48,14 +51,19 @@ function askQuestions (scopeInfo) {
       message: 'Please select a duration for your token.',
       choices: ['Permanent (never expires)', 'Temporary (expires after 1 hour)'],
       default: 0,
-      filter: choice => (choice.startsWith('Temporary') ? 'temporary' : 'permanent')
+      filter: choice => choice.startsWith('Temporary') ? 'temporary' : 'permanent'
     },
     {
       type: 'checkbox',
       name: 'scope',
       message: 'Please select the scope (i.e. the permissions on your reddit account) that you would like your token to have.',
-      choices: Object.keys(scopeInfo).map(key => (`${scopeInfo[key].id}: ${scopeInfo[key].description}`)).sort(),
-      validate: input => (input.length ? true : 'Please select at least one scope.')
+      choices: function () {
+        const done = this.async();
+        scopePromise.then(scopeInfo => done(
+          Object.keys(scopeInfo).map(key => `${scopeInfo[key].id}: ${scopeInfo[key].description}`).sort()
+        ));
+      },
+      validate: input => input.length ? true : 'Please select at least one scope.'
     }
   ], openAuthenticationPage);
 }
@@ -67,7 +75,7 @@ function getAuthenticationUrl (state, results) {
     state,
     redirect_uri: expected_redirect_uri,
     duration: results.duration,
-    scope: results.scope.map(option => (option.split(':')[0])).join(' ')
+    scope: results.scope.map(option => option.split(':')[0]).join(' ')
   })}`;
 }
 
@@ -81,7 +89,7 @@ function handleError (res, err, state, results) {
   console.error(err);
   res.writeHead(500, {'Content-Type': 'text/html'});
   if (err.statusCode) {
-    res.write(`An unknown error occured (status code: ${err.statusCode}). Details on the error have been logged below.`);
+    res.write(`An unknown error occured (status code: ${err.statusCode}). Details on the error have been logged below. `);
   }
   res.write(`Depending on the type of error, <a href=${getAuthenticationUrl(state, results)}>trying again</a> might help.`);
   res.write(`<pre><code>${require('util').inspect(err)}</code></pre>`);
