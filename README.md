@@ -1,6 +1,6 @@
 # reddit-oauth-helper
 
-A quick, intuitive script that generates creates reddit oauth tokens for you
+A quick, intuitive script that creates reddit oauth tokens for you
 
 ## How to use
 

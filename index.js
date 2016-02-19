@@ -59,9 +59,7 @@ function askQuestions () {
       message: 'Please select the scope (i.e. the permissions on your reddit account) that you would like your token to have.',
       choices: function () {
         const done = this.async();
-        scopePromise.then(scopeInfo => done(
-          Object.keys(scopeInfo).map(key => `${key}: ${scopeInfo[key].description}`).sort()
-        ));
+        scopePromise.then(scopes => done(Object.keys(scopes).map(key => `${key}: ${scopes[key].description}`).sort()));
       },
       validate: input => input.length ? true : 'Please select at least one scope.'
     }
