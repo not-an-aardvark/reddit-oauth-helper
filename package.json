@@ -1,6 +1,6 @@
 {
   "name": "reddit-oauth-helper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A quick, intuitive script that generates creates reddit oauth tokens for you",
   "bin": {
     "reddit-oauth-helper": "index.js"
