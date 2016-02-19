@@ -1,0 +1,28 @@
+{
+  "name": "reddit-oauth-helper",
+  "version": "0.1.0",
+  "description": "A quick, intuitive script that generates creates reddit oauth tokens for you",
+  "bin": {
+    "reddit-oauth-helper": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/not-an-aardvark/reddit-oauth-helper.git"
+  },
+  "keywords": [
+    "reddit",
+    "oauth2",
+    "api"
+  ],
+  "author": "not-an-aardvark",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/not-an-aardvark/reddit-oauth-helper/issues"
+  },
+  "homepage": "https://github.com/not-an-aardvark/reddit-oauth-helper#readme",
+  "dependencies": {
+    "inquirer": "^0.12.0",
+    "open": "0.0.5",
+    "request-promise": "^2.0.1"
+  }
+}
