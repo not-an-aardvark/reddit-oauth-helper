@@ -26,7 +26,7 @@ function askQuestions () {
       name: 'client_id',
       message: 'Client ID: ',
       validate: input => {
-        if (/^\s*[a-zA-Z0-9]{14}\s*$/.test(input)) {
+        if (/^\s*[a-zA-Z0-9_]{14}\s*$/.test(input)) {
           return true;
         }
         return 'Please enter your client ID. This is the 14-character string that appears to the right of your app\'s icon on this page: https://www.reddit.com/prefs/apps';
@@ -38,7 +38,7 @@ function askQuestions () {
       name: 'client_secret',
       message: 'Client secret: ',
       validate: input => {
-        if (/^\s*[a-zA-Z0-9]{27}\s*$/.test(input)) {
+        if (/^\s*[a-zA-Z0-9_]{27}\s*$/.test(input)) {
           return true;
         }
         return 'Please enter your client secret. This is the 27-character string that appears when you click "edit" next to your app on this page: https://www.reddit.com/prefs/apps';
