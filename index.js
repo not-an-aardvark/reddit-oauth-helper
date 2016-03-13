@@ -25,7 +25,7 @@ function askQuestions () {
       type: 'input',
       name: 'client_id',
       message: 'Client ID: ',
-      validate: input => {
+      validate (input) {
         if (/^\s*[a-zA-Z0-9_-]{14}\s*$/.test(input)) {
           return true;
         }
@@ -37,7 +37,7 @@ function askQuestions () {
       type: 'password',
       name: 'client_secret',
       message: 'Client secret: ',
-      validate: input => {
+      validate (input) {
         if (/^\s*[a-zA-Z0-9_-]{27}\s*$/.test(input)) {
           return true;
         }
@@ -57,9 +57,10 @@ function askQuestions () {
       type: 'checkbox',
       name: 'scope',
       message: 'Please select the scope (i.e. the permissions on your reddit account) that you would like your token to have.',
-      choices: function () {
-        const done = this.async();
-        scopePromise.then(scopes => done(Object.keys(scopes).map(key => `${key}: ${scopes[key].description}`).sort()));
+      choices () {
+        scopePromise.then(scopes =>
+          Object.keys(scopes).sort().map(key => `${key}: ${scopes[key].description}`)
+        ).then(this.async());
       },
       validate: input => input.length ? true : 'Please select at least one scope.'
     }
