@@ -62,7 +62,7 @@ function askQuestions () {
           Object.keys(scopes).sort().map(key => `${key}: ${scopes[key].description}`)
         ).then(this.async());
       },
-      validate: input => input.length ? true : 'Please select at least one scope.'
+      validate: input => input.length ? true : 'Please select at least one scope. (Use spacebar to select, arrow keys to move up/down.)'
     }
   ], openAuthenticationPage);
 }
@@ -80,7 +80,9 @@ function getAuthenticationUrl (state, results) {
 
 function openAuthenticationPage (results) {
   const state = require('crypto').randomBytes(16).toString('base64');
-  require('open')(getAuthenticationUrl(state, results));
+  const authenticationUrl = getAuthenticationUrl(state, results);
+  require('open')(authenticationUrl);
+  console.log(`\nHopefully your browser just opened. If it didn't, try going to this URL manually:\n\n${authenticationUrl}\n`)
   listenForCallback(state, results);
 }
 
