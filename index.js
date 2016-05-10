@@ -22,28 +22,26 @@ function askQuestions () {
 
   require('inquirer').prompt([
     {
+      type: 'list',
+      name: 'app_type',
+      message: 'Please select your app type.',
+      choices: ['web app', 'installed app', 'personal use script'],
+      default: 0,
+    },
+    {
       type: 'input',
       name: 'client_id',
       message: 'Client ID: ',
-      validate (input) {
-        if (/^\s*[a-zA-Z0-9_-]{14}\s*$/.test(input)) {
-          return true;
-        }
-        return 'Please enter your client ID. This is the 14-character string that appears to the right of your app\'s icon on this page: https://www.reddit.com/prefs/apps';
-      },
+      validate: input => /^\s*[a-zA-Z0-9_-]{14}\s*$/.test(input) || 'Please enter your client ID. This is the 14-character string that appears to the right of your app\'s icon on this page: https://www.reddit.com/prefs/apps',
       filter: input => input.trim()
     },
     {
       type: 'password',
       name: 'client_secret',
       message: 'Client secret: ',
-      validate (input) {
-        if (/^\s*[a-zA-Z0-9_-]{27}\s*$/.test(input)) {
-          return true;
-        }
-        return 'Please enter your client secret. This is the 27-character string that appears when you click "edit" next to your app on this page: https://www.reddit.com/prefs/apps';
-      },
-      filter: input => input.trim()
+      validate: input => /^\s*[a-zA-Z0-9_-]{27}\s*$/.test(input) || 'Please enter your client secret. This is the 27-character string that appears when you click "edit" next to your app on this page: https://www.reddit.com/prefs/apps',
+      filter: input => input.trim(),
+      when: responses => responses.app_type !== 'installed app'
     },
     {
       type: 'list',
@@ -106,7 +104,7 @@ function listenForCallback (state, results) {
     } else if (query.code) {
       request.post({
         uri: 'access_token',
-        auth: {user: results.client_id, pass: results.client_secret},
+        auth: {user: results.client_id, pass: results.client_secret || ''},
         form: {grant_type: 'authorization_code', code: query.code, redirect_uri: expected_redirect_uri}
       }).then(token_info => {
         console.log(token_info);
