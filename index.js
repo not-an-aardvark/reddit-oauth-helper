@@ -8,7 +8,7 @@ const expected_redirect_uri = `http://localhost:${port}/authorize_callback`;
 // Request the list of scopes from reddit right as the program starts.
 // Since the question about scope comes last, this promise is usually already resolved by the time that question is reached.
 const scopePromise = request.get('scopes');
-askQuestions();
+askQuestions().catch(console.error);
 
 function askQuestions () {
   console.log(
@@ -20,7 +20,7 @@ function askQuestions () {
     `you have created your app, please enter the following information:\n`
   );
 
-  require('inquirer').prompt([
+  return require('inquirer').prompt([
     {
       type: 'list',
       name: 'app_type',
@@ -55,14 +55,10 @@ function askQuestions () {
       type: 'checkbox',
       name: 'scope',
       message: 'Please select the scope (i.e. the permissions on your reddit account) that you would like your token to have.',
-      choices () {
-        scopePromise.then(scopes =>
-          Object.keys(scopes).sort().map(key => `${key}: ${scopes[key].description}`)
-        ).then(this.async());
-      },
-      validate: input => input.length ? true : 'Please select at least one scope. (Use spacebar to select, arrow keys to move up/down.)'
+      choices: () => scopePromise.then(scopes => Object.keys(scopes).sort().map(key => `${key}: ${scopes[key].description}`)),
+      validate: input => !!input.length || 'Please select at least one scope. (Use spacebar to select, arrow keys to move up/down.)'
     }
-  ], openAuthenticationPage);
+  ]).then(openAuthenticationPage);
 }
 
 function getAuthenticationUrl (state, results) {
