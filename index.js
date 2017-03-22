@@ -55,7 +55,7 @@ function askQuestions () {
       type: 'checkbox',
       name: 'scope',
       message: 'Please select the scope (i.e. the permissions on your reddit account) that you would like your token to have.',
-      choices: () => scopePromise.then(scopes => Object.keys(scopes).sort().map(key => `${key}: ${scopes[key].description}`)),
+      choices: () => scopePromise.then(scopes => scopes.map(s => `${s[0]}: ${s[1].description}`).sort()),
       validate: input => !!input.length || 'Please select at least one scope. (Use spacebar to select, arrow keys to move up/down.)'
     }
   ]).then(openAuthenticationPage);
