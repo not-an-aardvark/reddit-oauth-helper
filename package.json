@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "description": "A quick, intuitive script that creates reddit oauth tokens for you",
   "bin": {
-    "reddit-oauth-helper": "index.js"
+    "reddit-oauth-helper": "node-server.js"
   },
   "scripts": {
     "lint": "eslint index.js browser.jsx",
