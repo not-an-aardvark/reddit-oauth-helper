@@ -5,6 +5,10 @@
   "bin": {
     "reddit-oauth-helper": "index.js"
   },
+  "scripts": {
+    "lint": "eslint index.js browser.jsx",
+    "build": "babel browser.jsx --out-file browser.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/not-an-aardvark/reddit-oauth-helper.git"
@@ -24,5 +28,15 @@
     "inquirer": "^1.1.2",
     "open": "0.0.5",
     "request-promise": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "eslint": "^4.0.0",
+    "eslint-config-not-an-aardvark": "^2.0.0",
+    "eslint-plugin-react": "^7.1.0"
   }
 }

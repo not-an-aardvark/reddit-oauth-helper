@@ -4,6 +4,12 @@ A quick, intuitive script that creates reddit oauth tokens for you
 
 ## How to use
 
+### Web Interface (WIP)
+
+[Link](https://not-an-aardvark.github.io/reddit-oauth-helper)
+
+### Command Line
+
 ```bash
 $ npm install -g reddit-oauth-helper
 $ reddit-oauth-helper
