@@ -85,7 +85,7 @@ class RedditOauthHelper extends React.Component {
       method: 'post',
       body: form,
       headers: { authorization: `Basic ${btoa(this.props.anonymousClientId + ':')}` },
-      credentials: 'none',
+      credentials: 'omit',
     }).then(response => response.text())
       .then(JSON.parse)
       .then(tokenInfo => tokenInfo.access_token)
