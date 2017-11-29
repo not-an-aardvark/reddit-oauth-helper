@@ -4,7 +4,7 @@ A quick, intuitive script that creates reddit oauth tokens for you
 
 ## How to use
 
-### Web Interface (WIP)
+### Web Interface
 
 [Link](https://not-an-aardvark.github.io/reddit-oauth-helper)
 

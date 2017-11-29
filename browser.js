@@ -42,7 +42,7 @@ class RedditOauthHelper extends React.Component {
       React.createElement(
         'h4',
         null,
-        'CSS-free, just like subreddits'
+        'A tool to generate reddit OAuth tokens'
       ),
       React.createElement(AnonymousTokenDisplay, {
         anonymousToken: this.state.anonymousSnoowrap && this.state.anonymousSnoowrap.accessToken,
