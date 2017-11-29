@@ -310,7 +310,7 @@ if (window.opener && searchParams.has('code')) {
 
 window.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <RedditOauthHelper anonymousClientId="PDnacnMChBXZUw" deviceId="DO_NOT_TRACK_THIS_DEVICE" />,
+    <RedditOauthHelper anonymousClientId="0Ry1TaKGFLtP5Q" deviceId="DO_NOT_TRACK_THIS_DEVICE" />,
     document.getElementById('app')
   );
 });
