@@ -136,7 +136,7 @@ class RedditOauthHelper extends React.Component {
     const authWindow = window.open(authUrl);
 
     const messageListener = event => {
-      if (event.origin !== document.origin || event.data.state !== state) {
+      if (event.origin !== location.origin || event.data.state !== state) {
         return;
       }
       window.removeEventListener('message', messageListener);
@@ -343,7 +343,7 @@ function UserTokenDisplay(props) {
 
 const searchParams = new URL(window.location).searchParams;
 if (window.opener && searchParams.has('code')) {
-  window.opener.postMessage({ code: searchParams.get('code'), state: searchParams.get('state') }, document.origin);
+  window.opener.postMessage({ code: searchParams.get('code'), state: searchParams.get('state') }, location.origin);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
