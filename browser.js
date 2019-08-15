@@ -89,7 +89,7 @@ class RedditOauthHelper extends React.Component {
     return fetch('https://www.reddit.com/api/v1/access_token', {
       method: 'post',
       body: form,
-      headers: { authorization: `Basic ${ btoa(this.props.anonymousClientId + ':') }` },
+      headers: { authorization: `Basic ${btoa(this.props.anonymousClientId + ':')}` },
       credentials: 'omit'
     }).then(response => response.text()).then(JSON.parse).then(tokenInfo => tokenInfo.access_token).then(anonymousToken => {
       const anonymousSnoowrap = new snoowrap({ accessToken: anonymousToken });
@@ -184,7 +184,7 @@ function AnonymousTokenDisplay(props) {
     React.createElement(
       'span',
       null,
-      React.createElement('input', { type: 'text', disabled: true, value: props.anonymousToken || '...loading' })
+      React.createElement('input', { type: 'text', readonly: true, value: props.anonymousToken || '...loading' })
     ),
     React.createElement(
       'button',
@@ -324,7 +324,7 @@ function UserTokenDisplay(props) {
       'div',
       null,
       'Refresh token: ',
-      React.createElement('input', { type: 'text', disabled: true, value: props.refreshToken })
+      React.createElement('input', { type: 'text', readonly: true, value: props.refreshToken })
     ) : React.createElement(
       'div',
       null,
@@ -334,7 +334,7 @@ function UserTokenDisplay(props) {
       'div',
       null,
       'Access token: ',
-      React.createElement('input', { type: 'text', disabled: true, value: props.accessToken })
+      React.createElement('input', { type: 'text', readonly: true, value: props.accessToken })
     ),
     React.createElement('input', { type: 'submit', value: 'Revoke these tokens', onClick: props.revokeTokens }),
     props.refreshToken && React.createElement('input', { type: 'submit', value: 'Regenerate access token', onClick: props.regenerateAccessToken })
