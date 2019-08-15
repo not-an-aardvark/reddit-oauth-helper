@@ -178,7 +178,7 @@ function AnonymousTokenDisplay (props) {
         Anonymous token (expires after 1 hour, cannot access account-specific information):{' '}
       </span>
       <span>
-        <input type="text" disabled value={props.anonymousToken || '...loading'} />
+        <input type="text" readonly value={props.anonymousToken || '...loading'} />
       </span>
       <button disabled={!props.anonymousToken} onClick={props.generateNewToken}>
         Regenerate
@@ -285,14 +285,14 @@ function UserTokenDisplay (props) {
       {
         props.refreshToken
           ? <div>
-            Refresh token: <input type="text" disabled value={props.refreshToken} />
+            Refresh token: <input type="text" readonly value={props.refreshToken} />
           </div>
           : <div>
             Refresh token: (None, you selected a temporary duration)
           </div>
       }
       <div>
-        Access token: <input type="text" disabled value={props.accessToken} />
+        Access token: <input type="text" readonly value={props.accessToken} />
       </div>
       <input type="submit" value="Revoke these tokens" onClick={props.revokeTokens} />
       {
