@@ -26,7 +26,7 @@
   "homepage": "https://github.com/not-an-aardvark/reddit-oauth-helper#readme",
   "dependencies": {
     "inquirer": "^1.1.2",
-    "open": "0.0.5",
+    "open": "^7.0.0",
     "request-promise": "^2.0.1"
   },
   "devDependencies": {
