@@ -11,8 +11,7 @@ A quick, intuitive script that creates reddit oauth tokens for you
 ### Command Line
 
 ```bash
-$ npm install -g reddit-oauth-helper
-$ reddit-oauth-helper
+$ npx reddit-oauth-helper
 ```
 
 ![Example screenshot](https://i.gyazo.com/3218c6d5744909822ddec0b02eb5e74c.png)
