@@ -44,7 +44,7 @@ function askQuestions () {
       type: 'password',
       name: 'client_secret',
       message: 'Client secret: ',
-      validate: input => /^\s*[a-zA-Z0-9_-]{27}\s*$/.test(input) || 'Please enter your client secret. This is the 27-character string that appears when you click "edit" next to your app on this page: https://www.reddit.com/prefs/apps',
+      validate: input => /^\s*[a-zA-Z0-9_-]{30}\s*$/.test(input) || 'Please enter your client secret. This is the 30-character string that appears when you click "edit" next to your app on this page: https://www.reddit.com/prefs/apps',
       filter: input => input.trim(),
       when: responses => responses.app_type !== 'installed app',
     },
