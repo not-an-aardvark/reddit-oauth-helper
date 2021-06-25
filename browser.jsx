@@ -171,17 +171,22 @@ class RedditOauthHelper extends React.Component {
   }
 }
 
-function AnonymousTokenDisplay (props) {
+function AnonymousTokenDisplay ({ anonymousToken, generateNewToken }) {
+  const copy = () => navigator.clipboard.writeText(anonymousToken)
+
   return (
     <div>
       <span>
         Anonymous token (expires after 1 hour, cannot access account-specific information):{' '}
       </span>
       <span>
-        <input type="text" readonly value={props.anonymousToken || '...loading'} />
+        <input type="text" readOnly value={anonymousToken || '...loading'} />
       </span>
-      <button disabled={!props.anonymousToken} onClick={props.generateNewToken}>
+      <button disabled={!anonymousToken} onClick={generateNewToken}>
         Regenerate
+      </button>
+      <button disabled={!anonymousToken} onClick={copy}>
+        Copy
       </button>
     </div>
   );
@@ -285,14 +290,14 @@ function UserTokenDisplay (props) {
       {
         props.refreshToken
           ? <div>
-            Refresh token: <input type="text" readonly value={props.refreshToken} />
+            Refresh token: <input type="text" readOnly value={props.refreshToken} />
           </div>
           : <div>
             Refresh token: (None, you selected a temporary duration)
           </div>
       }
       <div>
-        Access token: <input type="text" readonly value={props.accessToken} />
+        Access token: <input type="text" readOnly value={props.accessToken} />
       </div>
       <input type="submit" value="Revoke these tokens" onClick={props.revokeTokens} />
       {

@@ -1,42 +1,43 @@
 {
-  "name": "reddit-oauth-helper",
-  "version": "0.3.1",
-  "description": "A quick, intuitive script that creates reddit oauth tokens for you",
-  "bin": {
-    "reddit-oauth-helper": "node-server.js"
-  },
-  "scripts": {
-    "lint": "eslint index.js browser.jsx",
-    "build": "babel browser.jsx --out-file browser.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/not-an-aardvark/reddit-oauth-helper.git"
-  },
-  "keywords": [
-    "reddit",
-    "oauth2",
-    "api"
-  ],
-  "author": "not-an-aardvark",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/not-an-aardvark/reddit-oauth-helper/issues"
-  },
-  "homepage": "https://github.com/not-an-aardvark/reddit-oauth-helper#readme",
-  "dependencies": {
-    "inquirer": "^1.1.2",
-    "open": "^7.0.0",
-    "request-promise": "^2.0.1"
-  },
-  "devDependencies": {
-    "babel-core": "^6.25.0",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-preset-es2016": "^6.24.1",
-    "babel-preset-es2017": "^6.24.1",
-    "eslint": "^4.0.0",
-    "eslint-config-not-an-aardvark": "^2.0.0",
-    "eslint-plugin-react": "^7.1.0"
-  }
+	"name": "reddit-oauth-helper",
+	"version": "0.3.1",
+	"description": "A quick, intuitive script that creates reddit oauth tokens for you",
+	"bin": {
+		"reddit-oauth-helper": "node-server.js"
+	},
+	"scripts": {
+		"lint": "eslint index.js browser.jsx",
+		"build": "babel browser.jsx --out-file browser.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/not-an-aardvark/reddit-oauth-helper.git"
+	},
+	"keywords": [
+		"reddit",
+		"oauth2",
+		"api"
+	],
+	"author": "not-an-aardvark",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/not-an-aardvark/reddit-oauth-helper/issues"
+	},
+	"homepage": "https://github.com/not-an-aardvark/reddit-oauth-helper#readme",
+	"dependencies": {
+		"inquirer": "^1.1.2",
+		"open": "^7.0.0",
+		"request-promise": "^2.0.1"
+	},
+	"devDependencies": {
+		"babel-core": "^6.26.3",
+		"babel-cli": "^6.26.0",
+		"babel-plugin-transform-object-rest-spread": "^6.23.0",
+		"babel-plugin-transform-react-jsx": "^6.24.1",
+		"babel-preset-es2016": "^6.24.1",
+		"babel-preset-es2017": "^6.24.1",
+		"eslint": "^4.0.0",
+		"eslint-config-not-an-aardvark": "^2.0.0",
+		"eslint-plugin-react": "^7.1.0"
+	}
 }
