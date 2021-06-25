@@ -32,7 +32,7 @@ class RedditOauthHelper extends React.Component {
     return (
       <div>
         <h1>
-          Reddit OAuth Helper
+          Reddit OAuth Helper <ThemeSwitcher />
         </h1>
         <h4>
           A tool to generate reddit OAuth tokens
@@ -171,29 +171,49 @@ class RedditOauthHelper extends React.Component {
   }
 }
 
-function AnonymousTokenDisplay (props) {
+function ThemeSwitcher () {
+  const toggleTheme = () => {
+    const rootElm = document.querySelector(":root");
+    const theme = rootElm.getAttribute("theme");
+
+    if (theme === "dark") {
+      rootElm.setAttribute("theme", "light");
+    } else {
+      rootElm.setAttribute("theme", "dark");
+    }
+  }
+
   return (
-    <div>
-      <span>
-        Anonymous token (expires after 1 hour, cannot access account-specific information):{' '}
-      </span>
-      <span>
-        <input type="text" readonly value={props.anonymousToken || '...loading'} />
-      </span>
-      <button disabled={!props.anonymousToken} onClick={props.generateNewToken}>
-        Regenerate
-      </button>
-    </div>
-  );
+    <label className="switch" onChange={toggleTheme}>
+      <input type="checkbox" />
+      <span className="slider round"></span>
+    </label>
+  )
+}
+
+function AnonymousTokenDisplay (props) {
+	return (
+	<div>
+		<p>
+			Anonymous token (expires after 1 hour, cannot access account-specific information):{' '}
+		</p>
+		<span>
+			<input type="text" readonly value={props.anonymousToken || '...loading'} />
+		</span>
+		<button disabled={!props.anonymousToken} onClick={props.generateNewToken}>
+			Regenerate
+		</button>
+	</div>
+);
 }
 
 function ClientInfoInput (props) {
   return (
     <div>
-      <div>
+      <p>
         Make sure to set the app redirect URI to <strong>{window.location.origin + window.location.pathname}</strong>.{' '}
         If you don&apos;t, you will get an error page and will have to try again.
-      </div>
+      </p>
       <input
         type="text"
         placeholder="Client ID"
