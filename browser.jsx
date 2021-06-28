@@ -285,12 +285,18 @@ function GenerateButton (props) {
 }
 
 function UserTokenDisplay (props) {
+  const copyRefreshToken = () => navigator.clipboard.writeText(props.refreshToken)
+  const copyAccessToken = () => navigator.clipboard.writeText(props.accessToken)
+  
   return (
     <div>
       {
         props.refreshToken
           ? <div>
             Refresh token: <input type="text" readOnly value={props.refreshToken} />
+            <button onClick={copyRefreshToken}>
+              Copy
+            </button>
           </div>
           : <div>
             Refresh token: (None, you selected a temporary duration)
@@ -298,6 +304,9 @@ function UserTokenDisplay (props) {
       }
       <div>
         Access token: <input type="text" readOnly value={props.accessToken} />
+        <button onClick={copyAccessToken}>
+          Copy
+        </button>
       </div>
       <input type="submit" value="Revoke these tokens" onClick={props.revokeTokens} />
       {

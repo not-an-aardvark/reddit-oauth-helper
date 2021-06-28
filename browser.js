@@ -324,6 +324,9 @@ function GenerateButton(props) {
 }
 
 function UserTokenDisplay(props) {
+  const copyRefreshToken = () => navigator.clipboard.writeText(props.refreshToken);
+  const copyAccessToken = () => navigator.clipboard.writeText(props.accessToken);
+
   return React.createElement(
     'div',
     null,
@@ -331,7 +334,12 @@ function UserTokenDisplay(props) {
       'div',
       null,
       'Refresh token: ',
-      React.createElement('input', { type: 'text', readOnly: true, value: props.refreshToken })
+      React.createElement('input', { type: 'text', readOnly: true, value: props.refreshToken }),
+      React.createElement(
+        'button',
+        { onClick: copyRefreshToken },
+        'Copy'
+      )
     ) : React.createElement(
       'div',
       null,
@@ -341,7 +349,12 @@ function UserTokenDisplay(props) {
       'div',
       null,
       'Access token: ',
-      React.createElement('input', { type: 'text', readOnly: true, value: props.accessToken })
+      React.createElement('input', { type: 'text', readOnly: true, value: props.accessToken }),
+      React.createElement(
+        'button',
+        { onClick: copyAccessToken },
+        'Copy'
+      )
     ),
     React.createElement('input', { type: 'submit', value: 'Revoke these tokens', onClick: props.revokeTokens }),
     props.refreshToken && React.createElement('input', { type: 'submit', value: 'Regenerate access token', onClick: props.regenerateAccessToken })
