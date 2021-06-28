@@ -32,7 +32,7 @@ class RedditOauthHelper extends React.Component {
     return (
       <div>
         <h1>
-          Reddit OAuth Helper
+          Reddit OAuth Helper <ThemeSwitcher />
         </h1>
         <h4>
           A tool to generate reddit OAuth tokens
@@ -171,6 +171,26 @@ class RedditOauthHelper extends React.Component {
   }
 }
 
+function ThemeSwitcher () {
+  const toggleTheme = () => {
+    const rootElm = document.querySelector(":root");
+    const theme = rootElm.getAttribute("theme");
+
+    if (theme === "dark") {
+      rootElm.setAttribute("theme", "light");
+    } else {
+      rootElm.setAttribute("theme", "dark");
+    }
+  }
+
+  return (
+    <label className="switch" onChange={toggleTheme}>
+      <input type="checkbox" />
+      <span className="slider round"></span>
+    </label>
+  )
+}
+
 function AnonymousTokenDisplay ({ anonymousToken, generateNewToken }) {
   const copy = () => navigator.clipboard.writeText(anonymousToken)
 
@@ -195,10 +215,10 @@ function AnonymousTokenDisplay ({ anonymousToken, generateNewToken }) {
 function ClientInfoInput (props) {
   return (
     <div>
-      <div>
+      <p>
         Make sure to set the app redirect URI to <strong>{window.location.origin + window.location.pathname}</strong>.{' '}
         If you don&apos;t, you will get an error page and will have to try again.
-      </div>
+      </p>
       <input
         type="text"
         placeholder="Client ID"

@@ -37,7 +37,8 @@ class RedditOauthHelper extends React.Component {
       React.createElement(
         'h1',
         null,
-        'Reddit OAuth Helper'
+        'Reddit OAuth Helper ',
+        React.createElement(ThemeSwitcher, null)
       ),
       React.createElement(
         'h4',
@@ -171,14 +172,33 @@ class RedditOauthHelper extends React.Component {
   }
 }
 
+function ThemeSwitcher() {
+  const toggleTheme = () => {
+    const rootElm = document.querySelector(":root");
+    const theme = rootElm.getAttribute("theme");
+
+    if (theme === "dark") {
+      rootElm.setAttribute("theme", "light");
+    } else {
+      rootElm.setAttribute("theme", "dark");
+    }
+  };
+
+  return React.createElement(
+    'label',
+    { className: 'switch', onChange: toggleTheme },
+    React.createElement('input', { type: 'checkbox' }),
+    React.createElement('span', { className: 'slider round' })
+  );
+}
+
 function AnonymousTokenDisplay({ anonymousToken, generateNewToken }) {
   const copy = () => navigator.clipboard.writeText(anonymousToken);
-
   return React.createElement(
     'div',
     null,
     React.createElement(
-      'span',
+      'p',
       null,
       'Anonymous token (expires after 1 hour, cannot access account-specific information):',
       ' '
@@ -206,7 +226,7 @@ function ClientInfoInput(props) {
     'div',
     null,
     React.createElement(
-      'div',
+      'p',
       null,
       'Make sure to set the app redirect URI to ',
       React.createElement(
