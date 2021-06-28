@@ -192,7 +192,8 @@ function ThemeSwitcher() {
   );
 }
 
-function AnonymousTokenDisplay(props) {
+function AnonymousTokenDisplay({ anonymousToken, generateNewToken }) {
+  const copy = () => navigator.clipboard.writeText(anonymousToken);
   return React.createElement(
     'div',
     null,
@@ -205,12 +206,17 @@ function AnonymousTokenDisplay(props) {
     React.createElement(
       'span',
       null,
-      React.createElement('input', { type: 'text', readonly: true, value: props.anonymousToken || '...loading' })
+      React.createElement('input', { type: 'text', readOnly: true, value: anonymousToken || '...loading' })
     ),
     React.createElement(
       'button',
-      { disabled: !props.anonymousToken, onClick: props.generateNewToken },
+      { disabled: !anonymousToken, onClick: generateNewToken },
       'Regenerate'
+    ),
+    React.createElement(
+      'button',
+      { disabled: !anonymousToken, onClick: copy },
+      'Copy'
     )
   );
 }
@@ -338,6 +344,9 @@ function GenerateButton(props) {
 }
 
 function UserTokenDisplay(props) {
+  const copyRefreshToken = () => navigator.clipboard.writeText(props.refreshToken);
+  const copyAccessToken = () => navigator.clipboard.writeText(props.accessToken);
+
   return React.createElement(
     'div',
     null,
@@ -345,7 +354,12 @@ function UserTokenDisplay(props) {
       'div',
       null,
       'Refresh token: ',
-      React.createElement('input', { type: 'text', readonly: true, value: props.refreshToken })
+      React.createElement('input', { type: 'text', readOnly: true, value: props.refreshToken }),
+      React.createElement(
+        'button',
+        { onClick: copyRefreshToken },
+        'Copy'
+      )
     ) : React.createElement(
       'div',
       null,
@@ -355,7 +369,12 @@ function UserTokenDisplay(props) {
       'div',
       null,
       'Access token: ',
-      React.createElement('input', { type: 'text', readonly: true, value: props.accessToken })
+      React.createElement('input', { type: 'text', readOnly: true, value: props.accessToken }),
+      React.createElement(
+        'button',
+        { onClick: copyAccessToken },
+        'Copy'
+      )
     ),
     React.createElement('input', { type: 'submit', value: 'Revoke these tokens', onClick: props.revokeTokens }),
     props.refreshToken && React.createElement('input', { type: 'submit', value: 'Regenerate access token', onClick: props.regenerateAccessToken })

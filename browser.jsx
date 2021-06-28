@@ -191,20 +191,25 @@ function ThemeSwitcher () {
   )
 }
 
-function AnonymousTokenDisplay (props) {
-	return (
-	<div>
-		<p>
-			Anonymous token (expires after 1 hour, cannot access account-specific information):{' '}
-		</p>
-		<span>
-			<input type="text" readonly value={props.anonymousToken || '...loading'} />
-		</span>
-		<button disabled={!props.anonymousToken} onClick={props.generateNewToken}>
-			Regenerate
-		</button>
-	</div>
-);
+function AnonymousTokenDisplay ({ anonymousToken, generateNewToken }) {
+  const copy = () => navigator.clipboard.writeText(anonymousToken)
+
+  return (
+    <div>
+      <span>
+        Anonymous token (expires after 1 hour, cannot access account-specific information):{' '}
+      </span>
+      <span>
+        <input type="text" readOnly value={anonymousToken || '...loading'} />
+      </span>
+      <button disabled={!anonymousToken} onClick={generateNewToken}>
+        Regenerate
+      </button>
+      <button disabled={!anonymousToken} onClick={copy}>
+        Copy
+      </button>
+    </div>
+  );
 }
 
 function ClientInfoInput (props) {
@@ -300,19 +305,28 @@ function GenerateButton (props) {
 }
 
 function UserTokenDisplay (props) {
+  const copyRefreshToken = () => navigator.clipboard.writeText(props.refreshToken)
+  const copyAccessToken = () => navigator.clipboard.writeText(props.accessToken)
+  
   return (
     <div>
       {
         props.refreshToken
           ? <div>
-            Refresh token: <input type="text" readonly value={props.refreshToken} />
+            Refresh token: <input type="text" readOnly value={props.refreshToken} />
+            <button onClick={copyRefreshToken}>
+              Copy
+            </button>
           </div>
           : <div>
             Refresh token: (None, you selected a temporary duration)
           </div>
       }
       <div>
-        Access token: <input type="text" readonly value={props.accessToken} />
+        Access token: <input type="text" readOnly value={props.accessToken} />
+        <button onClick={copyAccessToken}>
+          Copy
+        </button>
       </div>
       <input type="submit" value="Revoke these tokens" onClick={props.revokeTokens} />
       {
