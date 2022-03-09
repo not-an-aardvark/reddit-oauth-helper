@@ -37,7 +37,7 @@ function askQuestions () {
       type: 'input',
       name: 'client_id',
       message: 'Client ID: ',
-      validate: input => /^\s*[a-zA-Z0-9_-]{14}\s*$/.test(input) || 'Please enter your client ID. This is the 14-character string that appears to the right of your app\'s icon on this page: https://www.reddit.com/prefs/apps',
+      validate: input => /^\s*[a-zA-Z0-9_-]+\s*$/.test(input) || 'Please enter your client ID. This is the string that appears to the right of your app\'s icon on this page: https://www.reddit.com/prefs/apps',
       filter: input => input.trim(),
     },
     {
